@@ -3,6 +3,10 @@ var http = require("http");
 var restify = require('restify')
 var mongoose = require('mongoose');
 
+var bookmarker = require('./app/bookmark.js');
+var folder = require('./app/folder.js')
+console.log(bookmarker);
+
 /**Basic configs*/
 var port = 3000;
 var server = restify.createServer();
@@ -11,53 +15,34 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 mongoose.connect('mongodb://localhost/bookmarker');
-var Schema = mongoose.Schema
+var Schema = mongoose.Schema;
 
 var bookmarkSchema = new Schema({
 	title: String,
 	link: String,
 });
 
-var Bookmark = mongoose.model('Bookmark',bookmarkSchema);
+var folderSchema = new Schema({
+	title: String,
+});
 
+
+module.exports = BookmarkModel = mongoose.model('Bookmark',bookmarkSchema);
+module.exports = folderModel = mongoose.model('Folder',folderSchema);
 
 
 /*******************Routes*************************/
 
-
-var createBookmark = function (req, res, next) {
-   res.send('hello ' + req.params.name);
-   return next();
-}
-
-var updateBookmark = function (req, res, next) {
-   res.send('hello ' + req.params.name);
-   return next();
-}
-
-var deleteBookmark = function (req, res, next) {
-   res.send('hello ' + req.params.name);
-   return next();
-}
-
-var getBookmark = function (req, res, next) {
-   Bookmark.findOne({_id:req.params.id},function(err,bm){
-   	res.send(bm);
-   });
-   
-   //return next();
-}
 /**Bookmarks*/
-server.post("/bookmark/create", createBookmark)
-server.put("/bookmark/:id", updateBookmark)
-server.del("/bookmark/:id", deleteBookmark)
-server.get("/bookmark/:id", getBookmark)
-
+server.post("/bookmark/create", bookmarker.createBookmark);
+server.put("/bookmark/:id", bookmarker.updateBookmark);
+server.del("/bookmark/:id", bookmarker.deleteBookmark);
+server.get("/bookmark/:id", bookmarker.getBookmark);
 
 /**Folders*/
-// server.post("/folder/create", controllers.bookmark.createFolder)
-// server.del("/folder/:id", controllers.bookmark.deleteFolder)
-// server.get("/folder/:id", controllers.bookmark.getBookmark)
+server.post("/folder/create", folder.createFolder)
+server.del("/folder/:id", folder.deleteFolder)
+server.get("/folder/list", folder.listFolder)
 
 
 console.log("Listening at ");
