@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var bookmarker = require('./app/bookmark.js');
 var folder = require('./app/folder.js')
-console.log(bookmarker);
+
 
 /**Basic configs*/
 var port = 3000;
