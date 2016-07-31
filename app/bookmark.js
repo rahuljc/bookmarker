@@ -31,4 +31,13 @@ Bookmark.getBookmark = function (req, res, next) {
    return next();
 }
 
+Bookmark.getAllBookmarks = function (req, res, next){
+
+	BookmarkModel.find(function(err,bookmarks){
+		//console.log(bookmarks);
+		res.send(bookmarks);
+	});
+	return next();
+}
+
 module.exports = Bookmark;

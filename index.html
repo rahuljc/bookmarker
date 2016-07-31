@@ -2,15 +2,85 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bookmarker</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="public/custom.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="http://underscorejs.org/underscore-min.js"></script>
+	<script src="http://backbonejs.org/backbone-min.js"></script>
+	<script src="client.js"></script>
 </head>
 <body>
+	<div data-role="page" id="pageone">
+	   <div data-role="header">
+	     <h1>Bookmarks</h1>
+	   </div>
+	   <div data-role="footer" class="ui-bar">
+	   		<a href="#pageone" class="ui-btn-active" data-role="button" data-icon="arrow-d">View bookmarks</a>
+	   		<a href="#pagetwo" data-role="button" data-icon="plus">Add bookmark</a>
+			<a href="#pagethree" data-role="button" data-icon="plus">Add Folder</a>
+		</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://underscorejs.org/underscore-min.js"></script>
-<script src="http://backbonejs.org/backbone-min.js"></script>
-<script>
-  // Your code goes here
-</script>
+		<ul data-role="listview" data-inset="true" data-shadow="false">
+		  <li data-role="collapsible" data-iconpos="right" data-inset="false">
+		    <h2>Birds</h2>
+		    <ul data-role="listview" data-theme="b">
+		      <li>B1 <span><a href="#" data-icon="delete" data-iconpos="notext">X</a></span></li>
+		      <li>B2 <span><a href="#" data-icon="delete" data-iconpos="notext">X</a></span></li>
+		      <li>B3 <span><a href="#" data-icon="delete" data-iconpos="notext">X</a></span></li>
+		    </ul>
+		  </li>
+		  <li><a href="#">Humans</a></li>
+		  <li data-role="collapsible" data-iconpos="right" data-inset="false">
+		    <h2>Fish</h2>
+		    <ul data-role="listview" data-theme="b">
+		      <li><a href="#">Salmon</a></li>
+		      <li><a href="#">Pollock</a></li>
+		      <li><a href="#">Trout</a></li>
+		    </ul>
+		  </li>
+		</ul>
+	</div>
+	<div data-role="page" id ="pagetwo">
+		<div data-role="header">
+		    <h1>Add Bookmark</h1>
+		</div>
+		<div data-role="footer" class="ui-bar">
+	   		<a href="#pageone" data-role="button" data-icon="arrow-d">View bookmarks</a>
+	   		<a href="#pagetwo" data-role="button" class="ui-btn-active" data-icon="plus">Add bookmark</a>
+			<a href="#pagethree" data-role="button" data-icon="plus">Add Folder</a>
+		</div>
+		<form action="http://localhost:3000/bookmark/create" method="post">  
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="username">Title:</label>
+				<input type="text" name="username" id="username" value="" placeholder="Title"/>
+			</div>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="URL">URL</label>
+				<input type="text" name="URL" id="username" value="" placeholder="Link"/>
+			</div>
+			<a href="index.html" data-role="button" data-theme="e">Add Bookmark</a>
+		</form>
+	</div>
+
+	<div data-role="page" id ="pagethree">
+		<div data-role="header">
+		    <h1>Add Folder</h1>
+		</div>
+		<div data-role="footer" class="ui-bar">
+	   		<a href="#pageone" data-role="button" data-icon="arrow-d">View bookmarks</a>
+	   		<a href="#pagetwo" data-role="button" data-icon="plus">Add bookmark</a>
+			<a href="#pagethree" data-role="button" class="ui-btn-active" data-icon="plus">Add Folder</a>
+		</div>
+		<form action="http://localhost:3000/bookmark/create" method="post">  
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="username">Title:</label>
+				<input type="text" name="folder" id="username" value="" placeholder="Folder"/>
+			</div>
+			<a href="index.html" data-role="button" data-theme="a">Add Folder</a>
+		</form>
+	</div>
 </body>
 </html>
